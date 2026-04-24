@@ -1,4 +1,4 @@
-package Submissions.OOPC.com.airtribe.learntrack;
+package com.airtribe.learntrack;
 
 public class Main {
 
