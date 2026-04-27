@@ -5,6 +5,8 @@ import com.airtribe.learntrack.entities.Enrollment;
 import com.airtribe.learntrack.entities.Student;
 import com.airtribe.learntrack.repository.CourseRepository;
 import com.airtribe.learntrack.repository.EnrollmentRepository;
+import com.airtribe.learntrack.repository.StudentRepository;
+import com.airtribe.learntrack.service.StudentService;
 
 public class Main {
   public static void main(String[] args) {
@@ -20,6 +22,9 @@ public class Main {
     Student s1 = new Student("Yagnik", "Akbari", "yagnik58ppsv@gmail.com", "bc-java-20");
     Student s2 = new Student("Kisha", "Akbari", "kishan.offical@gmail.com", "bc-java-20");
     Student s3 = new Student("Raj", "Akbari", "raj.akbari.97@gmail.com", "bc-java-21");
+    System.out.println(s1);
+    StudentRepository.addStudent(s1);
+    StudentService.changeStatus(s1.getId(), false);
     System.out.println(s1);
     System.out.println(s2);
     System.out.println(s3);

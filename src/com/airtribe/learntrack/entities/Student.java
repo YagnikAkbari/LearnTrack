@@ -28,6 +28,10 @@ public class Student extends Person {
     return id;
   }
 
+  public void setStatus(boolean status) {
+    this.active = status;
+  }
+
   @Override
   public String toString() {
     return "Student{id=" + id

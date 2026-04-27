@@ -11,6 +11,10 @@ public class CourseRepository {
     courses.add(courseDetails);
   }
 
+  static public Course getCourseById(int courseId) {
+    return courses.get(0);
+  }
+
   static public ArrayList<Course> getAllCourse() {
     return courses;
   }
