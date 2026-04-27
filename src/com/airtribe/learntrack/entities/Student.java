@@ -8,17 +8,34 @@ package com.airtribe.learntrack.entities;
  * 2. active - to store status of Student (true or false)
  */
 public class Student extends Person {
-  static int studentIdCounter;
+  static int studentIdCounter = 0;
+  int id;
   String batch;
   boolean active;
 
   public Student(String firstName, String lastName, String email, String batch) {
     super(firstName, lastName, email);
+    this.id = getNextStudentId();
     this.batch = batch;
     this.active = true;
   }
 
-  int getNextStudentId() {
-    return studentIdCounter + 1;
+  private int getNextStudentId() {
+    return ++studentIdCounter;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  @Override
+  public String toString() {
+    return "Student{id=" + id
+        + ", firstName='" + getFirstName() + '\''
+        + ", lastName='" + getLastName() + '\''
+        + ", email='" + getEmail() + '\''
+        + ", batch='" + batch + '\''
+        + ", active=" + active
+        + '}';
   }
 }

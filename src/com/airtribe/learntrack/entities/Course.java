@@ -27,8 +27,12 @@ public class Course {
     this.active = CourseStatus.ACTIVE;
   }
 
-  int getNextCourseId() {
-    return courseIdCounter + 1;
+  private int getNextCourseId() {
+    return ++courseIdCounter;
+  }
+
+  public int getId() {
+    return id;
   }
 
   @Override

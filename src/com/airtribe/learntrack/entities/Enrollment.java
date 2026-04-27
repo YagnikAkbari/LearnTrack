@@ -1,5 +1,8 @@
 package com.airtribe.learntrack.entities;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * import statement is used when you want to access class from different package (for same package java resolve it automatically).
  */
@@ -18,9 +21,33 @@ import com.airtribe.learntrack.enums.EnrollmentStatus;
  * COMPLETED, CANCELLED)
  */
 public class Enrollment {
+  final static private DateTimeFormatter enrollmentDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm a");
+  static int enrollmentIdCounter = 0;
   private int id;
-  private String studentId;
+  private int studentId;
   private int courseId;
   private String enrollmentDate;
   private EnrollmentStatus status;
+
+  public Enrollment(int studentId, int courseId) {
+    this.id = getNextEnrollmentId();
+    this.studentId = studentId;
+    this.courseId = courseId;
+    this.enrollmentDate = LocalDateTime.now().format(enrollmentDateFormat);
+    this.status = EnrollmentStatus.ACTIVE;
+  }
+
+  static int getNextEnrollmentId() {
+    return ++enrollmentIdCounter;
+  }
+
+  @Override
+  public String toString() {
+    return "Enrollment{id=" + id
+        + ", studentId='" + studentId + '\''
+        + ", courseId='" + courseId + '\''
+        + ", enrollmentDate='" + enrollmentDate + '\''
+        + ", status=" + status
+        + '}';
+  }
 }
