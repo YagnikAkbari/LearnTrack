@@ -10,11 +10,13 @@ import com.airtribe.learntrack.repository.StudentRepository;
 import com.airtribe.learntrack.service.CourseService;
 import com.airtribe.learntrack.service.EnrollmentService;
 import com.airtribe.learntrack.service.StudentService;
+import com.airtribe.learntrack.validators.StudentValidator;
 
 public class Main {
   public static void main(String[] args) {
     StudentRepository studentRepository = new StudentRepository();
-    StudentService studentService = new StudentService(studentRepository);
+    StudentValidator studentValidator = new StudentValidator();
+    StudentService studentService = new StudentService(studentRepository, studentValidator);
     CourseRepository courseRepository = new CourseRepository();
     CourseService courseService = new CourseService(courseRepository);
     EnrollmentRepository enrollmentRepository = new EnrollmentRepository();

@@ -4,7 +4,7 @@ import com.airtribe.learntrack.entities.Student;
 import com.airtribe.learntrack.utils.InputValidator;
 
 public class StudentValidator {
-  public static boolean validate(Student student) {
+  public boolean validateStudent(Student student) {
     if (student.getLastName() == null || student.getLastName().isEmpty()) {
       throw new IllegalArgumentException("LastName is required");
     }

@@ -8,13 +8,15 @@ import com.airtribe.learntrack.validators.StudentValidator;
 public class StudentService {
 
   private StudentRepository studentRepository;
+  private StudentValidator studentValidator;
 
-  public StudentService(StudentRepository studentRepository) {
+  public StudentService(StudentRepository studentRepository, StudentValidator studentValidator) {
     this.studentRepository = studentRepository;
+    this.studentValidator = studentValidator;
   }
 
   public Student addStudent(Student student) {
-    boolean isValidStudent = StudentValidator.validate(student);
+    boolean isValidStudent = studentValidator.validateStudent(student);
     if (isValidStudent) {
       studentRepository.addStudent(student);
       return student;
@@ -23,7 +25,7 @@ public class StudentService {
   }
 
   public Student updateStudent(Student student) {
-    boolean isValidStudent = StudentValidator.validate(student);
+    boolean isValidStudent = studentValidator.validateStudent(student);
     if (isValidStudent) {
       studentRepository.updateStudent(student.getId(), student);
       return student;
