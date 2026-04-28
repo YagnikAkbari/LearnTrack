@@ -1,5 +1,11 @@
 package com.airtribe.learntrack.service;
 
-public class CourseService {
+import com.airtribe.learntrack.repository.CourseRepository;
 
+public class CourseService {
+  private CourseRepository courseRepository;
+
+  public CourseService(CourseRepository courseRepository) {
+    this.courseRepository = courseRepository;
+  }
 }

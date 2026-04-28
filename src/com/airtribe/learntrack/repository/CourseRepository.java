@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import com.airtribe.learntrack.entities.Course;
 
 public class CourseRepository {
-  static ArrayList<Course> courses = new ArrayList<>();
+  private ArrayList<Course> courses = new ArrayList<>();
 
-  static public void addCourse(Course courseDetails) {
+  public void addCourse(Course courseDetails) {
     courses.add(courseDetails);
   }
 
-  static public Course getCourseById(int courseId) {
+  public Course getCourseById(int courseId) {
     return courses.get(0);
   }
 
-  static public ArrayList<Course> getAllCourse() {
+  public ArrayList<Course> getAllCourse() {
     return courses;
   }
 }

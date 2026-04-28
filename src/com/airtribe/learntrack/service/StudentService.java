@@ -7,31 +7,50 @@ import com.airtribe.learntrack.validators.StudentValidator;
 
 public class StudentService {
 
-  public static void addStudent(Student student) {
+  private StudentRepository studentRepository;
+
+  public StudentService(StudentRepository studentRepository) {
+    this.studentRepository = studentRepository;
+  }
+
+  public Student addStudent(Student student) {
     boolean isValidStudent = StudentValidator.validate(student);
     if (isValidStudent) {
-      StudentRepository.addStudent(student);
+      studentRepository.addStudent(student);
+      return student;
     }
+    return null;
   }
 
-  public static Student updateStudent(Student student) {
-    return student;
+  public Student updateStudent(Student student) {
+    boolean isValidStudent = StudentValidator.validate(student);
+    if (isValidStudent) {
+      studentRepository.updateStudent(student.getId(), student);
+      return student;
+    }
+    return null;
   }
 
-  public static void removeStudent(int id) {
-
+  public Student getStudent(int studenId) {
+    return studentRepository.getStudentById(studenId);
   }
 
-  public static void changeStatus(int studentId, boolean status) throws EntityNotFoundException {
-    Student s = StudentRepository.getStudentById(studentId);
+  public void removeStudent(int studenId) {
+    studentRepository.removeStudent(studenId);
+  }
+
+  public void changeStatus(int studentId, boolean status) throws EntityNotFoundException {
+    Student s = studentRepository.getStudentById(studentId);
     if (s == null) {
       throw new EntityNotFoundException("Student Not Found!");
     }
-    System.out.println("Change Status to => " + status + " for " + s.toString());
     s.setStatus(status);
+    updateStudent(s);
   }
 
-  public static void listStudents() {
-
+  public void listStudents() {
+    for (Student student : studentRepository.getAllStudents()) {
+      System.out.println(student);
+    }
   }
 }
