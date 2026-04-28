@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.airtribe.learntrack.entities.Course;
 
 public class CourseRepository {
-  private ArrayList<Course> courses = new ArrayList<>();
+  private final ArrayList<Course> courses = new ArrayList<>();
 
   public void addCourse(Course courseDetails) {
     courses.add(courseDetails);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import com.airtribe.learntrack.entities.Enrollment;
 
 public class EnrollmentRepository {
-  private ArrayList<Enrollment> enrollments = new ArrayList<>();
+  private final ArrayList<Enrollment> enrollments = new ArrayList<>();
 
   public void addEnrollment(Enrollment details) {
     enrollments.add(details);

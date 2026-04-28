@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import com.airtribe.learntrack.entities.Student;
 
 public class StudentRepository {
-  private ArrayList<Student> students = new ArrayList<>();
+  private final ArrayList<Student> students = new ArrayList<>();
 
   public void addStudent(Student details) {
     students.add(details);
   }
 
-  public void updateStudent(int studentId, Student details) {
-    int index = getStudentIndexById(studentId);
+  public void updateStudent(Student details) {
+    int index = getStudentIndexById(details.getId());
     if (index >= 0) {
       students.set(index, details);
     }

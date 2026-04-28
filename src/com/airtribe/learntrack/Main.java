@@ -35,13 +35,13 @@ public class Main {
     Student s2 = new Student("Kishan", "Akbari", "kishan.offical@gmail.com", "bc-java-20");
     Student s3 = new Student("Raj", "Akbari", "raj.akbari.97@gmail.com", "bc-java-21");
 
-    // s1 — has empty email, so addStudent will reject it
     try {
       studentService.addStudent(s1);
       System.out.println(s1);
     } catch (Exception err) {
       System.out.println("Failed to add student s1: " + err.getMessage());
     }
+    System.out.println(studentService.listStudents());
     try {
       studentService.changeStatus(s1.getId(), false);
     } catch (Exception err) {
@@ -52,7 +52,6 @@ public class Main {
       }
     }
 
-    // s2 and s3 — valid students
     try {
       studentService.addStudent(s2);
     } catch (Exception err) {
@@ -63,13 +62,13 @@ public class Main {
     } catch (Exception err) {
       System.out.println("Failed to add student s3: " + err.getMessage());
     }
-    studentService.listStudents();
-    studentService.removeStudent(s2.getId());
-    studentService.listStudents();
 
-    System.out.println(studentService.getStudent(s1.getId()));
-    System.out.println(studentService.getStudent(s2.getId()));
-    System.out.println(studentService.getStudent(s3.getId()));
+    try {
+      studentService.removeStudent(s2.getId());
+    } catch (Exception err) {
+      System.out.println("Failed to remove student s2: " + err.getMessage());
+    }
+    System.out.println(studentService.listStudents());
 
     // Only enroll students that were successfully added
     Enrollment e1 = new Enrollment(s2.getId(), c1.getId());
