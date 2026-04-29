@@ -41,6 +41,30 @@ public class Enrollment {
     return ++enrollmentIdCounter;
   }
 
+  public int getId() {
+    return id;
+  }
+
+  public int getStudentId() {
+    return studentId;
+  }
+
+  public int getCourseId() {
+    return courseId;
+  }
+
+  public String getEnrollmentDate() {
+    return enrollmentDate;
+  }
+
+  public EnrollmentStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(EnrollmentStatus status) {
+    this.status = status;
+  }
+
   @Override
   public String toString() {
     return "Enrollment{id=" + id

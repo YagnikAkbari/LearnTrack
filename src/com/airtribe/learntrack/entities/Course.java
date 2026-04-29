@@ -35,6 +35,26 @@ public class Course {
     return id;
   }
 
+  public String getCourseName() {
+    return courseName;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public int getDurationInWeeks() {
+    return durationInWeeks;
+  }
+
+  public CourseStatus getStatus() {
+    return active;
+  }
+
+  public void setStatus(CourseStatus status) {
+    this.active = status;
+  }
+
   @Override
   public String toString() {
     return "Course{id=" + id
