@@ -2,9 +2,10 @@ package com.airtribe.learntrack.service;
 
 import java.util.ArrayList;
 
-import com.airtribe.learntrack.entities.Enrollment;
+import com.airtribe.learntrack.entity.Enrollment;
 import com.airtribe.learntrack.enums.EnrollmentStatus;
 import com.airtribe.learntrack.exception.EntityNotFoundException;
+import com.airtribe.learntrack.exception.InvalidInputException;
 import com.airtribe.learntrack.repository.EnrollmentRepository;
 import com.airtribe.learntrack.validators.EnrollmentValidator;
 
@@ -17,13 +18,10 @@ public class EnrollmentService {
     this.enrollmentValidator = enrollmentValidator;
   }
 
-  public Enrollment enrollStudent(Enrollment enrollment) {
-    boolean isValidEnrollment = enrollmentValidator.validateEnrollment(enrollment);
-    if (isValidEnrollment) {
-      enrollmentRepository.addEnrollment(enrollment);
-      return enrollment;
-    }
-    return null;
+  public Enrollment enrollStudent(Enrollment enrollment) throws InvalidInputException {
+    enrollmentValidator.validateEnrollment(enrollment);
+    enrollmentRepository.addEnrollment(enrollment);
+    return enrollment;
   }
 
   public Enrollment getEnrollment(int enrollmentId) throws EntityNotFoundException {

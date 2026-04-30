@@ -1,7 +1,8 @@
 package com.airtribe.learntrack.repository;
 
 import java.util.ArrayList;
-import com.airtribe.learntrack.entities.Enrollment;
+
+import com.airtribe.learntrack.entity.Enrollment;
 
 public class EnrollmentRepository {
   private final ArrayList<Enrollment> enrollments = new ArrayList<>();

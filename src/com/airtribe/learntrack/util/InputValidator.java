@@ -1,4 +1,4 @@
-package com.airtribe.learntrack.utils;
+package com.airtribe.learntrack.util;
 
 public class InputValidator {
   public static boolean validateEmail(String email) {

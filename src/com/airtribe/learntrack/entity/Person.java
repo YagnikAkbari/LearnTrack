@@ -1,4 +1,4 @@
-package com.airtribe.learntrack.entities;
+package com.airtribe.learntrack.entity;
 
 /**
  * Person class is used for creating a Person with it's identity information
@@ -29,5 +29,9 @@ public class Person {
 
   public String getEmail() {
     return email;
+  }
+
+  public String getDisplayName() {
+    return firstName + " " + lastName;
   }
 }

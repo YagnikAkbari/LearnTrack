@@ -2,8 +2,9 @@ package com.airtribe.learntrack.service;
 
 import java.util.ArrayList;
 
-import com.airtribe.learntrack.entities.Student;
+import com.airtribe.learntrack.entity.Student;
 import com.airtribe.learntrack.exception.EntityNotFoundException;
+import com.airtribe.learntrack.exception.InvalidInputException;
 import com.airtribe.learntrack.repository.StudentRepository;
 import com.airtribe.learntrack.validators.StudentValidator;
 
@@ -17,22 +18,16 @@ public class StudentService {
     this.studentValidator = studentValidator;
   }
 
-  public Student addStudent(Student student) {
-    boolean isValidStudent = studentValidator.validateStudent(student);
-    if (isValidStudent) {
-      studentRepository.addStudent(student);
-      return student;
-    }
-    return null;
+  public Student addStudent(Student student) throws InvalidInputException {
+    studentValidator.validateStudent(student);
+    studentRepository.addStudent(student);
+    return student;
   }
 
-  public Student updateStudent(Student student) {
-    boolean isValidStudent = studentValidator.validateStudent(student);
-    if (isValidStudent) {
-      studentRepository.updateStudent(student);
-      return student;
-    }
-    return null;
+  public Student updateStudent(Student student) throws InvalidInputException {
+    studentValidator.validateStudent(student);
+    studentRepository.updateStudent(student);
+    return student;
   }
 
   public Student getStudent(int studentId) throws EntityNotFoundException {
@@ -44,7 +39,7 @@ public class StudentService {
     studentRepository.removeStudent(studentId);
   }
 
-  public void changeStatus(int studentId, boolean status) throws EntityNotFoundException {
+  public void changeStatus(int studentId, boolean status) throws EntityNotFoundException, InvalidInputException {
     Student s = getStudentOrThrow(studentId);
     s.setStatus(status);
     updateStudent(s);

@@ -2,9 +2,10 @@ package com.airtribe.learntrack.service;
 
 import java.util.ArrayList;
 
-import com.airtribe.learntrack.entities.Course;
+import com.airtribe.learntrack.entity.Course;
 import com.airtribe.learntrack.enums.CourseStatus;
 import com.airtribe.learntrack.exception.EntityNotFoundException;
+import com.airtribe.learntrack.exception.InvalidInputException;
 import com.airtribe.learntrack.repository.CourseRepository;
 import com.airtribe.learntrack.validators.CourseValidator;
 
@@ -17,13 +18,10 @@ public class CourseService {
     this.courseValidator = courseValidator;
   }
 
-  public Course addCourse(Course course) {
-    boolean isValidCourse = courseValidator.validateCourse(course);
-    if (isValidCourse) {
-      courseRepository.addCourse(course);
-      return course;
-    }
-    return null;
+  public Course addCourse(Course course) throws InvalidInputException {
+    courseValidator.validateCourse(course);
+    courseRepository.addCourse(course);
+    return course;
   }
 
   public Course getCourse(int courseId) throws EntityNotFoundException {

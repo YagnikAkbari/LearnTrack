@@ -1,25 +1,25 @@
 package com.airtribe.learntrack.validators;
 
-import com.airtribe.learntrack.entities.Course;
-import com.airtribe.learntrack.utils.InputValidator;
+import com.airtribe.learntrack.entity.Course;
+import com.airtribe.learntrack.exception.InvalidInputException;
+import com.airtribe.learntrack.util.InputValidator;
 
 public class CourseValidator {
-  public boolean validateCourse(Course course) {
+  public void validateCourse(Course course) throws InvalidInputException {
     if (course.getCourseName() == null || course.getCourseName().isEmpty()) {
-      throw new IllegalArgumentException("Course Name is required");
+      throw new InvalidInputException("Course Name is required");
     }
     if (!InputValidator.validateString(course.getCourseName(), 1, 255)) {
-      throw new IllegalArgumentException("Please Enter Valid Course Name (min character 1 - max character 255)");
+      throw new InvalidInputException("Please Enter Valid Course Name (min character 1 - max character 255)");
     }
     if (course.getDescription() == null || course.getDescription().isEmpty()) {
-      throw new IllegalArgumentException("Description is required");
+      throw new InvalidInputException("Description is required");
     }
     if (!InputValidator.validateString(course.getDescription(), 1, 1000)) {
-      throw new IllegalArgumentException("Please Enter Valid Description (min character 1 - max character 1000)");
+      throw new InvalidInputException("Please Enter Valid Description (min character 1 - max character 1000)");
     }
     if (course.getDurationInWeeks() <= 0) {
-      throw new IllegalArgumentException("Duration in weeks must be greater than 0");
+      throw new InvalidInputException("Duration in weeks must be greater than 0");
     }
-    return true;
   }
 }

@@ -1,4 +1,4 @@
-package com.airtribe.learntrack.entities;
+package com.airtribe.learntrack.entity;
 
 public class Trainer extends Person {
   double weeklyCost;

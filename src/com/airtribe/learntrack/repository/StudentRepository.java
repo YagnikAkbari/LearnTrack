@@ -2,7 +2,7 @@ package com.airtribe.learntrack.repository;
 
 import java.util.ArrayList;
 
-import com.airtribe.learntrack.entities.Student;
+import com.airtribe.learntrack.entity.Student;
 
 public class StudentRepository {
   private final ArrayList<Student> students = new ArrayList<>();

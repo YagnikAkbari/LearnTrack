@@ -1,6 +1,7 @@
-package com.airtribe.learntrack.entities;
+package com.airtribe.learntrack.entity;
 
 import com.airtribe.learntrack.enums.CourseStatus;
+import com.airtribe.learntrack.util.IdGenerator;
 
 /**
  * Course class is used for create Course in which Student can enroll
@@ -12,7 +13,6 @@ import com.airtribe.learntrack.enums.CourseStatus;
  * 5. active - holds status of the course (eg. ACTIVE, INACTIVE)
  */
 public class Course {
-  static int courseIdCounter = 0;
   private int id;
   private String courseName;
   private String description;
@@ -20,15 +20,11 @@ public class Course {
   private CourseStatus active;
 
   public Course(String courseName, String description, int durationInWeeks) {
-    this.id = getNextCourseId();
+    this.id = IdGenerator.getNextCourseId();
     this.courseName = courseName;
     this.description = description;
     this.durationInWeeks = durationInWeeks;
     this.active = CourseStatus.ACTIVE;
-  }
-
-  private int getNextCourseId() {
-    return ++courseIdCounter;
   }
 
   public int getId() {

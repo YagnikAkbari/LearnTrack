@@ -1,4 +1,4 @@
-package com.airtribe.learntrack.entities;
+package com.airtribe.learntrack.entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 
 import com.airtribe.learntrack.enums.EnrollmentStatus;
+import com.airtribe.learntrack.util.IdGenerator;
 
 /**
  * Enrollment class is used for create Enrollment of Students into one or more
@@ -22,7 +23,6 @@ import com.airtribe.learntrack.enums.EnrollmentStatus;
  */
 public class Enrollment {
   final static private DateTimeFormatter enrollmentDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm a");
-  static int enrollmentIdCounter = 0;
   private int id;
   private int studentId;
   private int courseId;
@@ -30,15 +30,11 @@ public class Enrollment {
   private EnrollmentStatus status;
 
   public Enrollment(int studentId, int courseId) {
-    this.id = getNextEnrollmentId();
+    this.id = IdGenerator.getNextEnrollmentId();
     this.studentId = studentId;
     this.courseId = courseId;
     this.enrollmentDate = LocalDateTime.now().format(enrollmentDateFormat);
     this.status = EnrollmentStatus.ACTIVE;
-  }
-
-  static int getNextEnrollmentId() {
-    return ++enrollmentIdCounter;
   }
 
   public int getId() {
