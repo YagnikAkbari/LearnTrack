@@ -29,12 +29,39 @@ public class Enrollment {
   private String enrollmentDate;
   private EnrollmentStatus status;
 
+  /**
+   * Default constructor — creates an empty Enrollment.
+   * Demonstrates default constructor requirement.
+   */
+  public Enrollment() {
+    this.id = IdGenerator.getNextEnrollmentId();
+    this.studentId = 0;
+    this.courseId = 0;
+    this.enrollmentDate = LocalDateTime.now().format(enrollmentDateFormat);
+    this.status = EnrollmentStatus.ACTIVE;
+  }
+
+  /**
+   * Parameterized constructor — creates an Enrollment with student and course IDs.
+   */
   public Enrollment(int studentId, int courseId) {
     this.id = IdGenerator.getNextEnrollmentId();
     this.studentId = studentId;
     this.courseId = courseId;
     this.enrollmentDate = LocalDateTime.now().format(enrollmentDateFormat);
     this.status = EnrollmentStatus.ACTIVE;
+  }
+
+  /**
+   * Overloaded constructor — creates an Enrollment with a specific status.
+   * Demonstrates constructor overloading.
+   */
+  public Enrollment(int studentId, int courseId, EnrollmentStatus status) {
+    this.id = IdGenerator.getNextEnrollmentId();
+    this.studentId = studentId;
+    this.courseId = courseId;
+    this.enrollmentDate = LocalDateTime.now().format(enrollmentDateFormat);
+    this.status = status;
   }
 
   public int getId() {

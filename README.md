@@ -1,127 +1,91 @@
-# LearnTrack — Pending Tasks (Guide vs Current Code)
+# LearnTrack — Student Enrollment Management System
 
-I compared [PROJECT_GUIDE.md](file:///c:/Users/Tech/Downloads/LearnTrack/PROJECT_GUIDE.md) against every file in your codebase. Here's what's **missing or incomplete**:
-
----
-
-## Section A — Environment Setup & JVM Understanding (10 marks)
-
-| Item | Status | What to do |
-|------|--------|------------|
-| `Setup_Instructions.md` | ✅ Has content | — |
-| `JVM_Basics.md` | ❌ Empty | Write JDK vs JRE vs JVM explanation, bytecode, "Write Once Run Anywhere" |
+A console-based Java application for managing Students, Courses, and Enrollments. Built to demonstrate core Java OOP concepts including inheritance, polymorphism, encapsulation, constructor/method overloading, exception handling, and layered architecture.
 
 ---
 
-## Section B — Package Structure & Basics (10 marks)
+## Features
 
-| Item | Status | What to do |
-|------|--------|------------|
-| Package structure | ⚠️ Slightly off | Guide says `entity`, `util` — you have `entities`, `utils`. Not a blocker, but be aware |
-| `IdGenerator.java` | ❌ Empty class | Move the static ID counter logic here (guide wants centralized `getNextStudentId()`, `getNextCourseId()` etc.) instead of each entity having its own counter |
-| `AppConstants.java` | ❌ Empty | Add any app-level constants (e.g., max name length, menu text) |
-| `MenuOptions.java` | ❌ Empty | Define menu option constants (see Section D) |
-| `InvalidInputException.java` | ❌ Empty | Implement it — same pattern as `EntityNotFoundException` |
-
----
-
-## Section C — Core OOP Implementation (40 marks)
-
-### C1. Entities & Encapsulation (15 marks)
-
-| Item | Status | What to do |
-|------|--------|------------|
-| Private fields + getters/setters | ⚠️ Partial | `Student` is missing getters for `batch` and `active` |
-| **Default constructors** | ❌ Missing | Guide requires **default + parameterized** constructors on all entities |
-| **Constructor overloading** | ❌ Missing | Add at least one overloaded constructor per entity to demonstrate the concept |
-
-### C2. Inheritance & Polymorphism (10 marks)
-
-| Item | Status | What to do |
-|------|--------|------------|
-| `Person` base class | ✅ Done | — |
-| `Student extends Person` | ✅ Done | — |
-| `Trainer extends Person` | ✅ Exists (optional) | — |
-| `super` keyword usage | ✅ Done | — |
-| **Method overriding** (`getDisplayName()`) | ❌ Missing | Add a `getDisplayName()` in `Person` and override it in `Student` (and optionally `Trainer`) |
-
-### C3. Static, Methods, Utility (15 marks)
-
-| Item | Status | What to do |
-|------|--------|------------|
-| Centralized `IdGenerator` | ❌ Empty | Move all static ID counters into `IdGenerator` with static methods |
-| **Method overloading** | ❌ Missing | Demonstrate method overloading somewhere (e.g., overloaded `addStudent` in service, or overloaded search in repository) |
+- **Student Management** — Add, view all, search by ID, deactivate students
+- **Course Management** — Add, view all, activate/deactivate courses
+- **Enrollment Management** — Enroll students in courses, view all enrollments, update status (Completed/Cancelled)
+- **Interactive Menu** — Menu-driven console UI using `Scanner` with `while` + `switch`
+- **Input Validation** — Custom validators with `InvalidInputException` for bad data
+- **Error Handling** — `EntityNotFoundException` for missing records, `InputMismatchException` for invalid menu input
 
 ---
 
-## Section D — Application Logic & Menu UI (25 marks) 🔴 Biggest Gap
-
-| Item | Status | What to do |
-|------|--------|------------|
-| **Menu-driven console (Scanner)** | ❌ Missing | `Main.java` currently hardcodes demo data. Guide requires an **interactive menu loop** using `Scanner` with `while` + `switch` |
-| Search student by ID | ❌ Missing | Add menu option to search by ID |
-| Handle invalid input | ❌ Missing | Catch `InputMismatchException` for non-integer menu input, show "option not found" for invalid choices |
-| `MenuOptions.java` | ❌ Empty | Store menu option constants here |
-| Keep Main.java thin | ⚠️ | Main should only do input/output + call service methods — no business logic |
-
-### Expected menu structure (from the guide):
+## Project Structure
 
 ```
-===== LearnTrack Menu =====
-1. Student Management
-2. Course Management
-3. Enrollment Management
-4. Exit
-
---- Student Management ---
-1. Add Student
-2. View All Students
-3. Search by ID
-4. Deactivate Student
-5. Back
-
---- Course Management ---
-1. Add Course
-2. View Courses
-3. Activate/Deactivate Course
-4. Back
-
---- Enrollment Management ---
-1. Enroll Student
-2. View Enrollments
-3. Update Status (Completed/Cancelled)
-4. Back
+src/com/airtribe/learntrack/
+├── Main.java                          # Entry point — interactive menu UI
+├── constants/
+│   ├── AppConstants.java              # App-level constants (limits, messages)
+│   └── MenuOptions.java               # Menu display strings
+├── entity/
+│   ├── Person.java                    # Base class (inheritance)
+│   ├── Student.java                   # Extends Person
+│   ├── Trainer.java                   # Extends Person
+│   ├── Course.java                    # Course entity
+│   └── Enrollment.java               # Enrollment entity
+├── enums/
+│   ├── CourseStatus.java              # ACTIVE, INACTIVE
+│   └── EnrollmentStatus.java         # ACTIVE, COMPLETED, CANCELLED
+├── exception/
+│   ├── EntityNotFoundException.java   # Custom exception
+│   └── InvalidInputException.java     # Custom exception
+├── repository/
+│   ├── StudentRepository.java         # Student data access (ArrayList)
+│   ├── CourseRepository.java          # Course data access (ArrayList)
+│   └── EnrollmentRepository.java      # Enrollment data access (ArrayList)
+├── service/
+│   ├── StudentService.java            # Student business logic
+│   ├── CourseService.java             # Course business logic
+│   └── EnrollmentService.java         # Enrollment business logic
+├── util/
+│   ├── IdGenerator.java               # Centralized static ID generation
+│   └── InputValidator.java            # String/email validation utilities
+├── validators/
+│   ├── StudentValidator.java          # Student input validation
+│   ├── CourseValidator.java           # Course input validation
+│   └── EnrollmentValidator.java       # Enrollment input validation
+└── docs/
+    ├── Setup_Instructions.md          # Environment setup guide
+    ├── JVM_Basics.md                  # JDK vs JRE vs JVM, bytecode, WORA
+    └── Design_Notes.md               # Architecture & design decisions
 ```
 
 ---
 
-## Section E — Exception Handling (10 marks)
+## How to Compile & Run
 
-| Item | Status | What to do |
-|------|--------|------------|
-| `EntityNotFoundException` | ✅ Done | — |
-| `InvalidInputException` | ❌ Empty file | Implement it (same pattern) |
-| Handle wrong inputs in menu | ❌ | Catch `InputMismatchException`, show user-friendly messages |
+### Prerequisites
+- **JDK 17+** installed
+- Terminal / Command Prompt
+
+### Compile
+```bash
+cd LearnTrack
+javac -d out src/com/airtribe/learntrack/**/*.java src/com/airtribe/learntrack/Main.java
+```
+
+### Run
+```bash
+java -cp out com.airtribe.learntrack.Main
+```
 
 ---
 
-## Section F — Documentation & Clean Code (5 marks)
+## OOP Concepts Demonstrated
 
-| Item | Status | What to do |
-|------|--------|------------|
-| `README.md` | ❌ Empty | Write project overview + compile/run steps |
-| `Design_Notes.md` | ❌ Empty | Explain: why ArrayList, where static is used, where inheritance is used |
-| `JVM_Basics.md` | ❌ Empty | Explained above in Section A |
-
----
-
-## Priority Summary
-
-| Priority | Task | Marks |
-|----------|------|-------|
-| 🔴 High | Interactive menu-driven console with Scanner (while loop + switch) | 25 |
-| 🔴 High | Default constructors + constructor overloading on entities | 15 |
-| 🟡 Medium | Centralize `IdGenerator` + demonstrate method overloading | 15 |
-| 🟡 Medium | Add `getDisplayName()` override for polymorphism demo | 10 |
-| 🟡 Medium | Fill `InvalidInputException`, `MenuOptions`, `AppConstants` | 10 |
-| 🟢 Low | Write `README.md`, `Design_Notes.md`, `JVM_Basics.md` | 5+10 |
+| Concept | Where |
+|---------|-------|
+| **Encapsulation** | Private fields + public getters/setters in all entities |
+| **Inheritance** | `Student extends Person`, `Trainer extends Person` |
+| **Polymorphism** | `getDisplayName()` overridden in Student and Trainer |
+| **Constructor Overloading** | Default + parameterized constructors on every entity |
+| **Method Overloading** | `getStudentById(int)` and `getStudentById(String)` in StudentRepository |
+| **Static** | `IdGenerator` counters, `AppConstants`, `MenuOptions`, `InputValidator` |
+| **Custom Exceptions** | `EntityNotFoundException`, `InvalidInputException` |
+| **Exception Handling** | try-catch for business errors + `InputMismatchException` for menu input |

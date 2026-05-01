@@ -1,8 +1,10 @@
 package com.airtribe.learntrack;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.airtribe.learntrack.constants.AppConstants;
 import com.airtribe.learntrack.constants.MenuOptions;
 import com.airtribe.learntrack.entity.Course;
 import com.airtribe.learntrack.entity.Enrollment;
@@ -113,7 +115,7 @@ public class Main {
         courseService.deactivateCourse(courseId);
         System.out.println("Course deactivated successfully.");
       } else {
-        System.out.println("Invalid choice.");
+        System.out.println(AppConstants.INVALID_OPTION_MESSAGE);
       }
     } catch (EntityNotFoundException error) {
       System.out.println("Error: " + error.getMessage());
@@ -158,7 +160,7 @@ public class Main {
         enrollmentService.updateStatus(enrollmentId, EnrollmentStatus.CANCELLED);
         System.out.println("Enrollment marked as CANCELLED.");
       } else {
-        System.out.println("Invalid choice.");
+        System.out.println(AppConstants.INVALID_OPTION_MESSAGE);
       }
     } catch (EntityNotFoundException error) {
       System.out.println("Error: " + error.getMessage());
@@ -182,100 +184,130 @@ public class Main {
     Scanner sc = new Scanner(System.in);
     int module, action;
     while (true) {
-      System.out.println(MenuOptions.menu);
-      module = sc.nextInt();
-      if (module == 4) {
-        System.out.println("Thank you for visiting The Terminal of mine.");
-        break;
-      }
+      try {
+        System.out.println(MenuOptions.menu);
+        module = sc.nextInt();
+        if (module == 4) {
+          System.out.println(AppConstants.EXIT_MESSAGE);
+          break;
+        }
 
-      switch (module) {
-        case 1:
-          while (true) {
-            System.out.println(MenuOptions.studentOptions);
-            action = sc.nextInt();
-            sc.nextLine();
-            switch (action) {
-              case 1:
-                try {
-                  studentService.addStudent(addStudent(sc));
-                  System.out.println("Student Added Successfully.");
-                } catch (Exception error) {
-                  System.out.println("Error Adding Student: " + error.getMessage());
+        switch (module) {
+          case 1:
+            while (true) {
+              try {
+                System.out.println(MenuOptions.studentOptions);
+                action = sc.nextInt();
+                sc.nextLine();
+                switch (action) {
+                  case 1:
+                    try {
+                      studentService.addStudent(addStudent(sc));
+                      System.out.println("Student Added Successfully.");
+                    } catch (Exception error) {
+                      System.out.println("Error Adding Student: " + error.getMessage());
+                    }
+                    break;
+                  case 2:
+                    viewAllStudent(studentService.listStudents());
+                    break;
+                  case 3:
+                    searchStudentById(sc, studentService);
+                    break;
+                  case 4:
+                    deactivateStudent(sc, studentService);
+                    break;
+                  case 5:
+                    break;
+                  default:
+                    System.out.println(AppConstants.INVALID_OPTION_MESSAGE);
+                    break;
                 }
-                break;
-              case 2:
-                viewAllStudent(studentService.listStudents());
-                break;
-              case 3:
-                searchStudentById(sc, studentService);
-                break;
-              case 4:
-                deactivateStudent(sc, studentService);
-                break;
-              default:
-                break;
+                if (action == 5)
+                  break;
+              } catch (InputMismatchException e) {
+                System.out.println(AppConstants.INPUT_ERROR_MESSAGE);
+                sc.nextLine();
+              }
             }
-            if (action == 5)
-              break;
-          }
-          break;
-        case 2:
-          while (true) {
-            System.out.println(MenuOptions.courseOptions);
-            action = sc.nextInt();
-            sc.nextLine();
-            switch (action) {
-              case 1:
-                try {
-                  courseService.addCourse(addCourse(sc));
-                  System.out.println("Course Added Successfully.");
-                } catch (Exception error) {
-                  System.out.println("Error Adding Course: " + error.getMessage());
+            break;
+          case 2:
+            while (true) {
+              try {
+                System.out.println(MenuOptions.courseOptions);
+                action = sc.nextInt();
+                sc.nextLine();
+                switch (action) {
+                  case 1:
+                    try {
+                      courseService.addCourse(addCourse(sc));
+                      System.out.println("Course Added Successfully.");
+                    } catch (Exception error) {
+                      System.out.println("Error Adding Course: " + error.getMessage());
+                    }
+                    break;
+                  case 2:
+                    viewAllCourses(courseService.listCourses());
+                    break;
+                  case 3:
+                    toggleCourseStatus(sc, courseService);
+                    break;
+                  case 4:
+                    break;
+                  default:
+                    System.out.println(AppConstants.INVALID_OPTION_MESSAGE);
+                    break;
                 }
-                break;
-              case 2:
-                viewAllCourses(courseService.listCourses());
-                break;
-              case 3:
-                toggleCourseStatus(sc, courseService);
-                break;
-              default:
-                break;
+                if (action == 4)
+                  break;
+              } catch (InputMismatchException e) {
+                System.out.println(AppConstants.INPUT_ERROR_MESSAGE);
+                sc.nextLine();
+              }
             }
-            if (action == 4)
-              break;
-          }
-          break;
-        case 3:
-          while (true) {
-            System.out.println(MenuOptions.enrollmentOptions);
-            action = sc.nextInt();
-            sc.nextLine();
-            switch (action) {
-              case 1:
-                try {
-                  enrollmentService.enrollStudent(addEnrollment(sc));
-                  System.out.println("Student Enrolled Successfully.");
-                } catch (Exception error) {
-                  System.out.println("Error Enrolling Student: " + error.getMessage());
+            break;
+          case 3:
+            while (true) {
+              try {
+                System.out.println(MenuOptions.enrollmentOptions);
+                action = sc.nextInt();
+                sc.nextLine();
+                switch (action) {
+                  case 1:
+                    try {
+                      enrollmentService.enrollStudent(addEnrollment(sc));
+                      System.out.println("Student Enrolled Successfully.");
+                    } catch (Exception error) {
+                      System.out.println("Error Enrolling Student: " + error.getMessage());
+                    }
+                    break;
+                  case 2:
+                    viewAllEnrollments(enrollmentService.listEnrollments());
+                    break;
+                  case 3:
+                    updateEnrollmentStatus(sc, enrollmentService);
+                    break;
+                  case 4:
+                    break;
+                  default:
+                    System.out.println(AppConstants.INVALID_OPTION_MESSAGE);
+                    break;
                 }
-                break;
-              case 2:
-                viewAllEnrollments(enrollmentService.listEnrollments());
-                break;
-              case 3:
-                updateEnrollmentStatus(sc, enrollmentService);
-                break;
-              default:
-                break;
+                if (action == 4)
+                  break;
+              } catch (InputMismatchException e) {
+                System.out.println(AppConstants.INPUT_ERROR_MESSAGE);
+                sc.nextLine();
+              }
             }
-            if (action == 4)
-              break;
-          }
-          break;
-        default:
-          break;
+            break;
+          default:
+            System.out.println(AppConstants.INVALID_OPTION_MESSAGE);
+            break;
+        }
+      } catch (InputMismatchException e) {
+        System.out.println(AppConstants.INPUT_ERROR_MESSAGE);
+        sc.nextLine();
       }
     }
     sc.close();

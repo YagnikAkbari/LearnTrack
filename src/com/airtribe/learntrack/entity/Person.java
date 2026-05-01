@@ -13,6 +13,28 @@ public class Person {
   private String lastName;
   private String email;
 
+  /**
+   * Default constructor — required to demonstrate default constructor concept.
+   */
+  public Person() {
+    this.firstName = "";
+    this.lastName = "";
+    this.email = "";
+  }
+
+  /**
+   * Overloaded constructor — creates a Person with name only (no email).
+   * Demonstrates constructor overloading.
+   */
+  public Person(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = "";
+  }
+
+  /**
+   * Parameterized constructor — creates a Person with all fields.
+   */
   Person(String firstName, String lastName, String email) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -31,6 +53,10 @@ public class Person {
     return email;
   }
 
+  /**
+   * Returns the display name of the person.
+   * Subclasses can override this for custom display (polymorphism demo).
+   */
   public String getDisplayName() {
     return firstName + " " + lastName;
   }

@@ -14,6 +14,31 @@ public class Student extends Person {
   String batch;
   boolean active;
 
+  /**
+   * Default constructor — creates an empty Student.
+   * Demonstrates default constructor requirement.
+   */
+  public Student() {
+    super();
+    this.id = IdGenerator.getNextStudentId();
+    this.batch = "";
+    this.active = true;
+  }
+
+  /**
+   * Overloaded constructor — creates a Student with name only (no email/batch).
+   * Demonstrates constructor overloading.
+   */
+  public Student(String firstName, String lastName) {
+    super(firstName, lastName);
+    this.id = IdGenerator.getNextStudentId();
+    this.batch = "";
+    this.active = true;
+  }
+
+  /**
+   * Parameterized constructor — creates a Student with all fields.
+   */
   public Student(String firstName, String lastName, String email, String batch) {
     super(firstName, lastName, email);
     this.id = IdGenerator.getNextStudentId();
@@ -37,9 +62,13 @@ public class Student extends Person {
     this.active = status;
   }
 
+  /**
+   * Overrides Person.getDisplayName() to include batch info.
+   * Demonstrates method overriding / polymorphism.
+   */
   @Override
   public String getDisplayName() {
-    return getFirstName() + " " + getLastName();
+    return getFirstName() + " " + getLastName() + " (" + batch + ")";
   }
 
   @Override

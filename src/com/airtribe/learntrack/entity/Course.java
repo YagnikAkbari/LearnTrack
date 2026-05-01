@@ -19,6 +19,33 @@ public class Course {
   private int durationInWeeks;
   private CourseStatus active;
 
+  /**
+   * Default constructor — creates an empty Course.
+   * Demonstrates default constructor requirement.
+   */
+  public Course() {
+    this.id = IdGenerator.getNextCourseId();
+    this.courseName = "";
+    this.description = "";
+    this.durationInWeeks = 0;
+    this.active = CourseStatus.ACTIVE;
+  }
+
+  /**
+   * Overloaded constructor — creates a Course with name only.
+   * Demonstrates constructor overloading.
+   */
+  public Course(String courseName) {
+    this.id = IdGenerator.getNextCourseId();
+    this.courseName = courseName;
+    this.description = "";
+    this.durationInWeeks = 0;
+    this.active = CourseStatus.ACTIVE;
+  }
+
+  /**
+   * Parameterized constructor — creates a Course with all fields.
+   */
   public Course(String courseName, String description, int durationInWeeks) {
     this.id = IdGenerator.getNextCourseId();
     this.courseName = courseName;

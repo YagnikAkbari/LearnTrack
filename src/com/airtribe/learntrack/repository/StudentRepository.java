@@ -36,6 +36,15 @@ public class StudentRepository {
     return null;
   }
 
+  /**
+   * Overloaded method — accepts a String ID and parses it to int.
+   * Demonstrates method overloading concept.
+   */
+  public Student getStudentById(String studentId) {
+    int parsedId = Integer.parseInt(studentId);
+    return getStudentById(parsedId);
+  }
+
   public ArrayList<Student> getAllStudents() {
     return students;
   }
